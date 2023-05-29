@@ -4,6 +4,9 @@ import Popular from './Popular'
 import styled from 'styled-components'
 import Upcoming from './Upcoming'
 import Airing from './Airing'
+import WatchList from './WatchList'
+import { Link } from 'react-router-dom';
+
 
 function Homepage() {
 
@@ -66,6 +69,11 @@ function Homepage() {
                             <button type="submit">Search</button>
                         </div>
                     </form>
+
+                    <Link to="../Components/WatchList" className="filter-btn watchlist-filter">
+                     <button>Watchlist<i className="fas fa-list"></i></button>
+                     </Link>
+
                 </div>
             </header>
             {switchComponent()}
@@ -102,7 +110,7 @@ const HomepageStyled = styled.div`
                 outline: none;
                 border-radius: 30px;
                 font-size: 1.2rem;
-                background-color: #fff;
+                background-color: #green;
                 cursor: pointer;
                 transition: all .4s ease-in-out;
                 font-family: inherit;
@@ -122,7 +130,7 @@ const HomepageStyled = styled.div`
                     outline: none;
                     border-radius: 30px;
                     font-size: 1.2rem;
-                    background-color: #fff;
+                    background-color: #green;
                     border: 5px solid #e5e7eb;
                     transition: all .4s ease-in-out;
                 }

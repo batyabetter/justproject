@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useReducer} from "react";
 
+
 const GlobalContext = createContext();
 
 const baseUrl = "https://api.jikan.moe/v4";
@@ -11,6 +12,8 @@ const GET_POPULAR_ANIME = "GET_POPULAR_ANIME";
 const GET_UPCOMING_ANIME = "GET_UPCOMING_ANIME";
 const GET_AIRING_ANIME = "GET_AIRING_ANIME";
 const GET_PICTURES = "GET_PICTURES";
+const ADD_TO_WATCHLIST = "ADD_TO_WATCHLIST";
+const REMOVE_FROM_WATCHLIST = "REMOVE_FROM_WATCHLIST";
 
 //reducer
 const reducer = (state, action) => {
@@ -27,6 +30,11 @@ const reducer = (state, action) => {
             return {...state, airingAnime: action.payload, loading: false}
         case GET_PICTURES:
             return {...state, pictures: action.payload, loading: false}
+        case ADD_TO_WATCHLIST:
+            return { ...state, watchlist: [...state.watchlist, action.payload] };
+        case REMOVE_FROM_WATCHLIST:
+            return { ...state, watchlist: state.watchlist.filter(anime => anime.mal_id !== action.payload) };
+           
         default:
             return state;
     }
@@ -48,6 +56,14 @@ export const GlobalContextProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, intialState);
     const [search, setSearch] = React.useState('');
 
+
+    const addToWatchlist = (anime) => {
+        dispatch({ type: ADD_TO_WATCHLIST, payload: anime });
+    }
+
+    const removeFromWatchlist = (animeId) => {
+        dispatch({ type: REMOVE_FROM_WATCHLIST, payload: animeId });
+    }
 
     //handle change
     const handleChange = (e) => {

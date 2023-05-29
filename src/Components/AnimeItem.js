@@ -1,14 +1,28 @@
 import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { createContext, useContext, useReducer } from "react";
+
 
 function AnimeItem() {
     const {id} = useParams()
+    
+
+    
 
     //state
     const [anime, setAnime] = React.useState({})
     const [characters, setCharacters] = React.useState([])
     const [showMore, setShowMore] = React.useState(false)
+    const [isAdded, setIsAdded] = React.useState(false);
+
+
+    //Добавление или удаление из списка ожидание
+    const handleAddToWatchlist = () => {
+        setIsAdded(!isAdded);
+      };
+      
+
 
     //destructure anime
     const {
@@ -59,6 +73,11 @@ function AnimeItem() {
                         <p><span>Source:</span><span>{source}</span></p>
                         <p><span>Season:</span><span>{season}</span></p>
                         <p><span>Duration:</span><span>{duration}</span></p>
+                        <div>
+                    
+           
+        </div>
+
                     </div>
                 </div>
                 <p className="description">
@@ -115,6 +134,21 @@ const AnimeItemStyled = styled.div`
         &:hover{
             transform: skew(-3deg);
         }
+    }
+    .Add{
+        width: 100px
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .7rem 1.5rem;
+        outline: none;
+        border-radius: 30px;
+        font-size: 1.2rem;
+        background-color: #green;
+        cursor: pointer;
+        transition: all .4s ease-in-out;
+        font-family: inherit;
+        border: 5px solid #e5e7eb;
     }
     .title{
         display: inline-block;
